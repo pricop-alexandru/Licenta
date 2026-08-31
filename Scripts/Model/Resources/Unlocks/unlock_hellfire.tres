@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnlockableItemResource" format=3 uid="uid://b1tgv11g5ksut"]
+
+[ext_resource type="Script" uid="uid://bbvmxldomfrrj" path="res://Scripts/Model/Resources/UnlockableItemResource.cs" id="1_tnkwj"]
+
+[resource]
+script = ExtResource("1_tnkwj")
+Id = "card_hellfire"
+DisplayName = "Hellfire"
+LoreText = "Call down hellfire on a 3x3 area. Exhausted until shop."
+UnlockConditionText = "Kill 160 enemies"
+RequiredStatKey = "total_kills"
+RequiredStatValue = 160
+metadata/_custom_type_script = "uid://bbvmxldomfrrj"

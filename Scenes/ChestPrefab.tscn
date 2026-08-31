@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b7q0xbydfojcn"]
+
+[ext_resource type="Texture2D" uid="uid://djo7wbkeichk7" path="res://Assets/Sprites/chest.png" id="1_gb34e"]
+
+[node name="ChestPrefab" type="Node2D" unique_id=1259159217]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=459595316]
+position = Vector2(0, -5)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_gb34e")

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnlockableItemResource" format=3 uid="uid://b6xtppxsckql5"]
+
+[ext_resource type="Script" uid="uid://bbvmxldomfrrj" path="res://Scripts/Model/Resources/UnlockableItemResource.cs" id="1_ruvwu"]
+
+[resource]
+script = ExtResource("1_ruvwu")
+Id = "card_avarice"
+DisplayName = "Avarice"
+LoreText = "Your greed grants you a 20% bonus to all skull rewards. Stacks multiplicatively with other bonuses."
+UnlockConditionText = "Earn 50 skulls in total"
+RequiredStatKey = "TotalLifetimeSkulls"
+RequiredStatValue = 50
+metadata/_custom_type_script = "uid://bbvmxldomfrrj"

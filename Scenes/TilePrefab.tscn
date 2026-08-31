@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://cbgoc35hac3gq"]
+
+[ext_resource type="Texture2D" uid="uid://cattnifbol340" path="res://Assets/Sprites/DefaultTileAnim.png" id="1_72wui"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72wui"]
+atlas = ExtResource("1_72wui")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dh7u7"]
+atlas = ExtResource("1_72wui")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbtod"]
+atlas = ExtResource("1_72wui")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kib3g"]
+atlas = ExtResource("1_72wui")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glets"]
+atlas = ExtResource("1_72wui")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2scxp"]
+atlas = ExtResource("1_72wui")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3dsc"]
+atlas = ExtResource("1_72wui")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ropcy"]
+atlas = ExtResource("1_72wui")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgq84"]
+atlas = ExtResource("1_72wui")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrgi3"]
+atlas = ExtResource("1_72wui")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aprqn"]
+atlas = ExtResource("1_72wui")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_304ft"]
+atlas = ExtResource("1_72wui")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0nij0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72wui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dh7u7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbtod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kib3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glets")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2scxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3dsc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ropcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgq84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrgi3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aprqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_304ft")
+}],
+"loop": true,
+"name": &"tile",
+"speed": 4.0
+}]
+
+[node name="TilePrefab" type="Node2D" unique_id=183509555]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1296856405]
+sprite_frames = SubResource("SpriteFrames_0nij0")
+animation = &"tile"
+autoplay = "tile"
+frame_progress = 0.57645774

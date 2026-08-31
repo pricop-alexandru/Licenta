@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnlockableItemResource" format=3 uid="uid://doegrn4lhbxfn"]
+
+[ext_resource type="Script" uid="uid://bbvmxldomfrrj" path="res://Scripts/Model/Resources/UnlockableItemResource.cs" id="1_go27n"]
+
+[resource]
+script = ExtResource("1_go27n")
+Id = "enemy_goblin"
+ItemType = 1
+DisplayName = "Goblin"
+LoreText = "Sneaky and smarter than a slime.
+Attacks diagonally 1 square."
+UnlockConditionText = "You must discover it yourself."
+RequiredStatKey = "seen_enemy_goblin"
+metadata/_custom_type_script = "uid://bbvmxldomfrrj"

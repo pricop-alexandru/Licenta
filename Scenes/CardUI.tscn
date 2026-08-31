@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://dioohjcmecbig"]
+
+[ext_resource type="Script" uid="uid://cl7n5ifauqhhq" path="res://Scripts/View/CardUI.cs" id="1_obeoo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obeoo"]
+bg_color = Color(0, 0, 0, 0.5882353)
+
+[node name="CardUI" type="Control" unique_id=387778627 node_paths=PackedStringArray("CardImage", "NameLabel", "TooltipPanel", "DescriptionLabel", "VisualRoot")]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 150.0
+script = ExtResource("1_obeoo")
+CardImage = NodePath("VisualRoot/CardImage")
+NameLabel = NodePath("VisualRoot/Label")
+TooltipPanel = NodePath("VisualRoot/TooltipPanel")
+DescriptionLabel = NodePath("VisualRoot/TooltipPanel/Label")
+VisualRoot = NodePath("VisualRoot")
+
+[node name="VisualRoot" type="Control" parent="." unique_id=1294642711]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="VisualRoot" unique_id=562969688]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Card name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CardImage" type="TextureRect" parent="VisualRoot" unique_id=1210892755]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TooltipPanel" type="Label" parent="VisualRoot" unique_id=2040987505]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 0
+offset_left = 200.0
+offset_right = 425.0
+offset_bottom = 225.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_obeoo")
+
+[node name="Label" type="Label" parent="VisualRoot/TooltipPanel" unique_id=206890021]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

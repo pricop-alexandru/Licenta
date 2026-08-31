@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b07avia0643li"]
+
+[ext_resource type="Script" uid="uid://bysi8ebvvcmg7" path="res://Scripts/View/EntityView.cs" id="1_pkk1c"]
+[ext_resource type="Texture2D" uid="uid://doy2xp1q726a8" path="res://icon.svg" id="2_hv8ta"]
+
+[node name="SlimePrefab" type="Node2D" unique_id=1433842824 node_paths=PackedStringArray("MainSprite")]
+script = ExtResource("1_pkk1c")
+MainSprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=589535185]
+scale = Vector2(0.2, 0.4)
+texture = ExtResource("2_hv8ta")
+offset = Vector2(0, -48)

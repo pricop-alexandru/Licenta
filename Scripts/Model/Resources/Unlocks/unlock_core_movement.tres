@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnlockableItemResource" format=3 uid="uid://bcqd3ur3xr77a"]
+
+[ext_resource type="Script" uid="uid://bbvmxldomfrrj" path="res://Scripts/Model/Resources/UnlockableItemResource.cs" id="1_ore8m"]
+
+[resource]
+script = ExtResource("1_ore8m")
+Id = "card_core_movement"
+DisplayName = "Horizontal Attack"
+LoreText = "Default.
+Move or attack in one of the four cardinal directions."
+UnlockConditionText = "Unlocked by default."
+RequiredStatValue = 0
+metadata/_custom_type_script = "uid://bbvmxldomfrrj"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnlockableItemResource" format=3 uid="uid://dcbvphqnesixh"]
+
+[ext_resource type="Script" uid="uid://bbvmxldomfrrj" path="res://Scripts/Model/Resources/UnlockableItemResource.cs" id="1_yc4iq"]
+
+[resource]
+script = ExtResource("1_yc4iq")
+Id = "enemy_slime"
+ItemType = 1
+DisplayName = "Slime"
+LoreText = "A lump of sentient goo. Only moves horizontally 1 tile."
+UnlockConditionText = "You must discover it yourself."
+RequiredStatKey = "seen_enemy_slime"
+metadata/_custom_type_script = "uid://bbvmxldomfrrj"

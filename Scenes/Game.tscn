@@ -1,0 +1,1319 @@
+[gd_scene format=3 uid="uid://bd0dmbbvnh310"]
+
+[ext_resource type="Script" uid="uid://cyxw705xkxrd1" path="res://Scripts/View/GridManager.cs" id="1_gl6un"]
+[ext_resource type="Script" uid="uid://bi572myyxpa13" path="res://Scripts/Core/GameRoot.cs" id="1_kldst"]
+[ext_resource type="PackedScene" uid="uid://dpi53khcaumn6" path="res://Scenes/EntityPrefab.tscn" id="2_b2bpf"]
+[ext_resource type="PackedScene" uid="uid://cbgoc35hac3gq" path="res://Scenes/TilePrefab.tscn" id="2_j5yw3"]
+[ext_resource type="PackedScene" uid="uid://dvet6bma5p52r" path="res://Scenes/PortalPrefab.tscn" id="3_7lihs"]
+[ext_resource type="Script" uid="uid://h7gal3x5qwsa" path="res://Scripts/View/CameraController.cs" id="3_j5yw3"]
+[ext_resource type="PackedScene" uid="uid://b07avia0643li" path="res://Scenes/SlimePrefab.tscn" id="4_3so38"]
+[ext_resource type="PackedScene" uid="uid://dnmujul5bmfuf" path="res://Scenes/GoblinPrefab.tscn" id="5_3cx6b"]
+[ext_resource type="Resource" uid="uid://bcqd3ur3xr77a" path="res://Scripts/Model/Resources/Unlocks/unlock_core_movement.tres" id="6_0iyqm"]
+[ext_resource type="PackedScene" uid="uid://b3xuvwl7kyhdc" path="res://Scenes/MoveHighlightPrefab.tscn" id="6_fgofq"]
+[ext_resource type="PackedScene" uid="uid://b7q0xbydfojcn" path="res://Scenes/ChestPrefab.tscn" id="7_bf53h"]
+[ext_resource type="Resource" uid="uid://brr0p6556g1y4" path="res://Scripts/Model/Resources/Unlocks/unlock_diagonal_strike.tres" id="7_jn8rg"]
+[ext_resource type="Script" uid="uid://djcl6rioutm0j" path="res://Scripts/View/InputController.cs" id="8_2irst"]
+[ext_resource type="Resource" uid="uid://b6xtppxsckql5" path="res://Scripts/Model/Resources/Unlocks/unlock_avarice.tres" id="8_umnjm"]
+[ext_resource type="Resource" uid="uid://b1tgv11g5ksut" path="res://Scripts/Model/Resources/Unlocks/unlock_hellfire.tres" id="9_4eqlp"]
+[ext_resource type="PackedScene" uid="uid://sjxn2uyw07wl" path="res://Scenes/AttackHighlightPrefab.tscn" id="9_8r6kd"]
+[ext_resource type="Resource" uid="uid://dcbvphqnesixh" path="res://Scripts/Model/Resources/Unlocks/unlock_slime.tres" id="10_18uti"]
+[ext_resource type="Script" uid="uid://bh7tvukc3xopy" path="res://Scripts/View/ChestLootUI.cs" id="10_71axn"]
+[ext_resource type="Resource" uid="uid://doegrn4lhbxfn" path="res://Scripts/Model/Resources/Unlocks/unlock_goblin.tres" id="11_khy6b"]
+[ext_resource type="Script" uid="uid://b50iww8os6onc" path="res://Scripts/View/HandUI.cs" id="13_wxwew"]
+[ext_resource type="PackedScene" uid="uid://dioohjcmecbig" path="res://Scenes/CardUI.tscn" id="14_acvyw"]
+[ext_resource type="Script" uid="uid://5coxrvwuvw3g" path="res://Scripts/View/CurrencyUI.cs" id="15_alh3a"]
+[ext_resource type="Texture2D" uid="uid://doy2xp1q726a8" path="res://icon.svg" id="16_4q8tf"]
+[ext_resource type="Script" uid="uid://bt3e3fngm3ud6" path="res://Scripts/View/DeckOverlayUI.cs" id="17_4q8tf"]
+[ext_resource type="Script" uid="uid://dffuqivuvoev2" path="res://Scripts/View/ShopUI.cs" id="18_x3xnh"]
+[ext_resource type="Script" uid="uid://c72oupl3757h2" path="res://Scripts/View/MainMenuUI.cs" id="20_tfod6"]
+[ext_resource type="Script" uid="uid://bkjjv0ehtyx7n" path="res://Scripts/View/PreRunMenuUI.cs" id="21_vvhu1"]
+[ext_resource type="Script" uid="uid://cmlrbciaxjnq0" path="res://Scripts/View/PauseMenuUI.cs" id="22_lbihj"]
+[ext_resource type="Shader" uid="uid://cpy74lfa6guw4" path="res://Scenes/CRT.gdshader" id="23_lbihj"]
+[ext_resource type="Script" uid="uid://d2lp3ieo4m8il" path="res://Scripts/View/SettingsMenuUI.cs" id="24_raj38"]
+[ext_resource type="Script" uid="uid://dqmntn1exa43v" path="res://Scripts/View/GameOverUI.cs" id="25_8e0uq"]
+[ext_resource type="Script" uid="uid://1sirbmssqwoc" path="res://Scripts/View/StatsMenuUI.cs" id="26_i0vto"]
+[ext_resource type="Script" uid="uid://dvrjy6a1bc8f1" path="res://Scripts/View/UnlocksMenuUI.cs" id="27_3jf1l"]
+[ext_resource type="PackedScene" uid="uid://cj3su1cidhp43" path="res://Scenes/UnlockGridItemPrefab.tscn" id="28_356ba"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_raj38"]
+shader = ExtResource("23_lbihj")
+shader_parameter/enabled = true
+shader_parameter/intensity = 0.5
+
+[node name="GameRoot" type="Node2D" unique_id=1828489263 node_paths=PackedStringArray("GridView", "MainCamera", "ChestUI", "PlayerHandUI", "TopRightCurrencyUI", "DeckViewerUI", "ShopMenuUI", "MainMenuView", "GameplayUILayer", "DepthLabel", "PreRunMenuView", "PauseMenuView", "SettingsMenuView", "StatsMenuView", "GameOverView", "UnlocksMenuView")]
+script = ExtResource("1_kldst")
+GridView = NodePath("GridManager")
+MainCamera = NodePath("Camera2D")
+EntityPrefab = ExtResource("2_b2bpf")
+PortalPrefab = ExtResource("3_7lihs")
+ChestUI = NodePath("ChestLootUI")
+EnemyPrefabs = Dictionary[String, PackedScene]({
+"enemy_goblin": ExtResource("5_3cx6b"),
+"enemy_slime": ExtResource("4_3so38")
+})
+PlayerHandUI = NodePath("HUDLayer")
+TopRightCurrencyUI = NodePath("HUDLayer/CurrencyUI")
+DeckViewerUI = NodePath("HUDLayer/DeckOverlay")
+ShopMenuUI = NodePath("HUDLayer/ShopOverlay")
+MainMenuView = NodePath("MainMenuLayer/MainMenuUI")
+GameplayUILayer = NodePath("HUDLayer")
+DepthLabel = NodePath("HUDLayer/DepthLabel")
+PreRunMenuView = NodePath("MainMenuLayer/PreRunMenu")
+PauseMenuView = NodePath("PauseLayer")
+SettingsMenuView = NodePath("SettingsLayer/SettingsMenu")
+StatsMenuView = NodePath("StatsMenu")
+GameOverView = NodePath("GameOverScreen")
+UnlocksMenuView = NodePath("UnlocksMenu")
+AllUnlockablesData = Array[Object]([ExtResource("6_0iyqm"), ExtResource("7_jn8rg"), ExtResource("8_umnjm"), ExtResource("9_4eqlp"), ExtResource("10_18uti"), ExtResource("11_khy6b")])
+
+[node name="GridManager" type="Node2D" parent="." unique_id=1742121785]
+script = ExtResource("1_gl6un")
+TilePrefab = ExtResource("2_j5yw3")
+MoveHighlightPrefab = ExtResource("6_fgofq")
+AttackHighlightPrefab = ExtResource("9_8r6kd")
+ChestPrefab = ExtResource("7_bf53h")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1871599404]
+script = ExtResource("3_j5yw3")
+
+[node name="InputController" type="Node" parent="." unique_id=1342144623]
+script = ExtResource("8_2irst")
+
+[node name="ChestLootUI" type="CanvasLayer" parent="." unique_id=525473211 node_paths=PackedStringArray("CardNameLabel", "TakeButton", "LeaveButton")]
+script = ExtResource("10_71axn")
+CardNameLabel = NodePath("Panel/Label")
+TakeButton = NodePath("Panel/TakeButton")
+LeaveButton = NodePath("Panel/LeaveButton")
+
+[node name="Panel" type="Panel" parent="ChestLootUI" unique_id=346541665]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ChestLootUI/Panel" unique_id=672403468]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -960.0
+offset_bottom = -540.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+text = "Card Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TakeButton" type="Button" parent="ChestLootUI/Panel" unique_id=534500911]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 0
+offset_left = 719.0
+offset_top = 661.0
+offset_right = 764.0
+offset_bottom = 692.0
+scale = Vector2(2, 2)
+text = "Take"
+
+[node name="LeaveButton" type="Button" parent="ChestLootUI/Panel" unique_id=1768017751]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = 1113.0
+offset_top = 660.0
+offset_right = 1166.0
+offset_bottom = 691.0
+scale = Vector2(2, 2)
+text = "Leave
+"
+
+[node name="HUDLayer" type="CanvasLayer" parent="." unique_id=2076397970 node_paths=PackedStringArray("CardContainer", "EndTurnButton")]
+script = ExtResource("13_wxwew")
+CardPrefab = ExtResource("14_acvyw")
+CardContainer = NodePath("HBoxContainer")
+EndTurnButton = NodePath("EndTurnButton")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUDLayer" unique_id=645293575]
+layout_direction = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = -60
+alignment = 1
+
+[node name="CurrencyUI" type="MarginContainer" parent="HUDLayer" unique_id=1992729261 node_paths=PackedStringArray("SkullsLabel")]
+custom_minimum_size = Vector2(100, 50)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+script = ExtResource("15_alh3a")
+SkullsLabel = NodePath("HBoxContainer/SkullCounter")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUDLayer/CurrencyUI" unique_id=1594109386]
+layout_mode = 2
+
+[node name="SkullCounter" type="Label" parent="HUDLayer/CurrencyUI/HBoxContainer" unique_id=658575393]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 2
+
+[node name="SkullIcon" type="TextureRect" parent="HUDLayer/CurrencyUI/HBoxContainer" unique_id=1068137917]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 2
+texture = ExtResource("16_4q8tf")
+expand_mode = 2
+
+[node name="DeckOverlay" type="MarginContainer" parent="HUDLayer" unique_id=1659981718 node_paths=PackedStringArray("DeckButton", "DeckCountLabel", "OverlayPanel", "ContentList", "CloseButton")]
+custom_minimum_size = Vector2(200, 300)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+script = ExtResource("17_4q8tf")
+DeckButton = NodePath("TextureButton")
+DeckCountLabel = NodePath("Label")
+OverlayPanel = NodePath("../OverlayLayer")
+ContentList = NodePath("../OverlayLayer/ScrollContainer/ContentList")
+CloseButton = NodePath("../OverlayLayer/XButton")
+CardPrefab = ExtResource("14_acvyw")
+
+[node name="TextureButton" type="TextureButton" parent="HUDLayer/DeckOverlay" unique_id=169540955]
+layout_mode = 2
+texture_normal = ExtResource("16_4q8tf")
+
+[node name="Label" type="Label" parent="HUDLayer/DeckOverlay" unique_id=1530620786]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="OverlayLayer" type="Panel" parent="HUDLayer" unique_id=865516678]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HUDLayer/OverlayLayer" unique_id=1530103804]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ContentList" type="VBoxContainer" parent="HUDLayer/OverlayLayer/ScrollContainer" unique_id=1453757193]
+layout_mode = 2
+
+[node name="XButton" type="Button" parent="HUDLayer/OverlayLayer" unique_id=769647390]
+light_mask = 0
+custom_minimum_size = Vector2(60, 40)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -88.0
+offset_top = 26.0
+offset_right = -28.0
+offset_bottom = 83.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "X"
+
+[node name="ShopOverlay" type="ColorRect" parent="HUDLayer" unique_id=789182538 node_paths=PackedStringArray("DropdownPanel", "CardsGrid", "RerollButton", "RerollCostLabel", "LeaveButton")]
+custom_minimum_size = Vector2(1920, 1080)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5019608)
+script = ExtResource("18_x3xnh")
+DropdownPanel = NodePath("DropdownPanel")
+CardsGrid = NodePath("DropdownPanel/HBoxContainer/CardsGrid")
+RerollButton = NodePath("DropdownPanel/HBoxContainer/VBoxContainer/Reroll")
+RerollCostLabel = NodePath("DropdownPanel/HBoxContainer/VBoxContainer/Price")
+LeaveButton = NodePath("DropdownPanel/HBoxContainer/VBoxContainer/LeaveButton")
+CardPrefab = ExtResource("14_acvyw")
+
+[node name="DropdownPanel" type="Panel" parent="HUDLayer/ShopOverlay" unique_id=655609036]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUDLayer/ShopOverlay/DropdownPanel" unique_id=2083846107]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUDLayer/ShopOverlay/DropdownPanel/HBoxContainer" unique_id=733617429]
+custom_minimum_size = Vector2(500, 800)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 33
+
+[node name="Reroll" type="Button" parent="HUDLayer/ShopOverlay/DropdownPanel/HBoxContainer/VBoxContainer" unique_id=680203737]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+size_flags_stretch_ratio = 1.75
+icon = ExtResource("16_4q8tf")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Price" type="Label" parent="HUDLayer/ShopOverlay/DropdownPanel/HBoxContainer/VBoxContainer" unique_id=460516207]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+
+[node name="LeaveButton" type="Button" parent="HUDLayer/ShopOverlay/DropdownPanel/HBoxContainer/VBoxContainer" unique_id=765048946]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 64
+text = "Leave"
+
+[node name="CardsGrid" type="GridContainer" parent="HUDLayer/ShopOverlay/DropdownPanel/HBoxContainer" unique_id=441336635]
+custom_minimum_size = Vector2(1420, 0)
+layout_mode = 2
+columns = 3
+
+[node name="EndTurnButton" type="Button" parent="HUDLayer" unique_id=1134631521]
+anchors_preset = -1
+offset_left = 100.0
+offset_top = 940.0
+offset_right = 250.0
+offset_bottom = 990.0
+theme_override_font_sizes/font_size = 32
+text = "End Turn"
+
+[node name="DepthLabel" type="Label" parent="HUDLayer" unique_id=17932324]
+offset_left = 860.0
+offset_top = 50.0
+offset_right = 1060.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OpenPause" type="Button" parent="HUDLayer" unique_id=453087856]
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 94.0
+offset_bottom = 77.0
+theme_override_font_sizes/font_size = 32
+text = "Esc"
+
+[node name="MainMenuLayer" type="CanvasLayer" parent="." unique_id=1546046446]
+layer = 100
+
+[node name="MainMenuUI" type="Control" parent="MainMenuLayer" unique_id=877747705 node_paths=PackedStringArray("TitleScreenBox", "PlayButton", "QuitButton", "SaveSlotsBox", "NameInputField", "SlotButtons", "DeleteButtons", "BackToTitleButton", "SettingsButton")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("20_tfod6")
+TitleScreenBox = NodePath("TitleScreenBox")
+PlayButton = NodePath("TitleScreenBox/PlayButton")
+QuitButton = NodePath("TitleScreenBox/QuitButton")
+SaveSlotsBox = NodePath("SaveSlotsBox")
+NameInputField = NodePath("SaveSlotsBox/LineEdit")
+SlotButtons = [NodePath("SaveSlotsBox/Slot1/Slot1Button"), NodePath("SaveSlotsBox/Slot2/Slot2Button"), NodePath("SaveSlotsBox/Slot3/Slot3Button")]
+DeleteButtons = [NodePath("SaveSlotsBox/Slot1/DeleteButton"), NodePath("SaveSlotsBox/Slot2/DeleteButton"), NodePath("SaveSlotsBox/Slot3/DeleteButton")]
+BackToTitleButton = NodePath("SaveSlotsBox/BackToTitleButton")
+SettingsButton = NodePath("SettingsButton")
+
+[node name="ColorRect" type="ColorRect" parent="MainMenuLayer/MainMenuUI" unique_id=551506835]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14509805, 0.14509805, 0.14509805, 1)
+
+[node name="TitleScreenBox" type="Control" parent="MainMenuLayer/MainMenuUI" unique_id=322113379]
+anchors_preset = 0
+offset_left = 560.0
+offset_top = 250.0
+offset_right = 1360.0
+offset_bottom = 794.0
+
+[node name="Title" type="Label" parent="MainMenuLayer/MainMenuUI/TitleScreenBox" unique_id=1633610322]
+layout_mode = 0
+offset_left = 244.0
+offset_top = 191.0
+offset_right = 556.0
+offset_bottom = 268.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 64
+text = "Deckrinth"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="MainMenuLayer/MainMenuUI/TitleScreenBox" unique_id=652203937]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 450.0
+offset_right = 500.0
+offset_bottom = 488.0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "Play"
+autowrap_mode = 2
+
+[node name="QuitButton" type="Button" parent="MainMenuLayer/MainMenuUI/TitleScreenBox" unique_id=221931573]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 506.0
+offset_right = 500.0
+offset_bottom = 544.0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "Quit"
+autowrap_mode = 2
+
+[node name="SaveSlotsBox" type="Control" parent="MainMenuLayer/MainMenuUI" unique_id=1753035792]
+visible = false
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="BackToTitleButton" type="Button" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox" unique_id=1185042521]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 0
+offset_left = 910.0
+offset_top = 800.0
+offset_right = 1010.0
+offset_bottom = 850.0
+theme_override_font_sizes/font_size = 24
+text = "Back"
+icon_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox" unique_id=1956285930]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 80.0
+offset_right = 1670.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Enter new save name..."
+alignment = 1
+
+[node name="Slot1" type="VBoxContainer" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox" unique_id=531925019]
+custom_minimum_size = Vector2(400, 600)
+layout_direction = 1
+layout_mode = 0
+offset_left = 250.0
+offset_top = 150.0
+offset_right = 650.0
+offset_bottom = 750.0
+
+[node name="Slot1Button" type="Button" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox/Slot1" unique_id=8299767]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="DeleteButton" type="Button" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox/Slot1" unique_id=1198527513]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 24
+text = "Delete"
+
+[node name="Slot2" type="VBoxContainer" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox" unique_id=424455556]
+layout_mode = 0
+offset_left = 760.0
+offset_top = 150.0
+offset_right = 1160.0
+offset_bottom = 750.0
+
+[node name="Slot2Button" type="Button" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox/Slot2" unique_id=897240276]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="DeleteButton" type="Button" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox/Slot2" unique_id=1762318456]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+text = "Delete"
+
+[node name="Slot3" type="VBoxContainer" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox" unique_id=2011973769]
+layout_mode = 0
+offset_left = 1270.0
+offset_top = 150.0
+offset_right = 1670.0
+offset_bottom = 750.0
+
+[node name="Slot3Button" type="Button" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox/Slot3" unique_id=1193561688]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="DeleteButton" type="Button" parent="MainMenuLayer/MainMenuUI/SaveSlotsBox/Slot3" unique_id=1671998397]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+text = "Delete"
+
+[node name="SettingsButton" type="Button" parent="MainMenuLayer/MainMenuUI" unique_id=565425785]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 197.0
+offset_bottom = 97.0
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="PreRunMenu" type="Control" parent="MainMenuLayer" unique_id=2013392384 node_paths=PackedStringArray("NewRunButton", "ContinueRunButton", "UnlocksButton", "StatsButton", "ReturnToMainButton")]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_force_pass_scroll_events = false
+script = ExtResource("21_vvhu1")
+NewRunButton = NodePath("NewRun")
+ContinueRunButton = NodePath("ContinueRun")
+UnlocksButton = NodePath("Unlocks")
+StatsButton = NodePath("Stats")
+ReturnToMainButton = NodePath("Return")
+
+[node name="NewRun" type="Button" parent="MainMenuLayer/PreRunMenu" unique_id=1509038432]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.27800003
+anchor_right = 0.5
+anchor_bottom = 0.27800003
+offset_left = -66.0
+offset_top = -0.24002075
+offset_right = 66.0
+offset_bottom = -249.24002
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "New Run"
+
+[node name="ContinueRun" type="Button" parent="MainMenuLayer/PreRunMenu" unique_id=845410574]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.34300002
+anchor_right = 0.5
+anchor_bottom = 0.34300002
+offset_left = -104.5
+offset_top = -0.44003296
+offset_right = 104.5
+offset_bottom = -323.44003
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Continue Run"
+
+[node name="Stats" type="Button" parent="MainMenuLayer/PreRunMenu" unique_id=1161280507]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.407
+anchor_right = 0.5
+anchor_bottom = 0.407
+offset_left = -52.0
+offset_top = 0.44000244
+offset_right = 52.0
+offset_bottom = -392.56
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Stats"
+
+[node name="Unlocks" type="Button" parent="MainMenuLayer/PreRunMenu" unique_id=2058997614]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.47200003
+anchor_right = 0.5
+anchor_bottom = 0.47200003
+offset_left = -62.5
+offset_top = 0.23995972
+offset_right = 62.5
+offset_bottom = -462.76004
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Unlocks"
+
+[node name="Return" type="Button" parent="MainMenuLayer/PreRunMenu" unique_id=2057267844]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.537
+anchor_right = 0.5
+anchor_bottom = 0.537
+offset_left = -61.0
+offset_top = 0.039978027
+offset_right = 61.0
+offset_bottom = -532.96
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Return"
+
+[node name="PauseLayer" type="CanvasLayer" parent="." unique_id=1381204595 node_paths=PackedStringArray("OpenPauseButton", "PauseOverlay", "ResumeButton", "SettingsButton", "UnlocksButton", "SaveAndQuitButton", "AbandonRunButton", "SaveQuitPopup", "ToMainMenuButton", "ToDesktopButton", "CancelQuitButton")]
+script = ExtResource("22_lbihj")
+OpenPauseButton = NodePath("../HUDLayer/OpenPause")
+PauseOverlay = NodePath("PauseOverlay")
+ResumeButton = NodePath("PauseOverlay/Resume")
+SettingsButton = NodePath("PauseOverlay/Settings")
+UnlocksButton = NodePath("PauseOverlay/Unlocks")
+SaveAndQuitButton = NodePath("PauseOverlay/Save & Quit")
+AbandonRunButton = NodePath("PauseOverlay/Abandon Run")
+SaveQuitPopup = NodePath("PauseOverlay/SaveQuitPopup")
+ToMainMenuButton = NodePath("PauseOverlay/SaveQuitPopup/QuitMenu")
+ToDesktopButton = NodePath("PauseOverlay/SaveQuitPopup/QuitDesktop")
+CancelQuitButton = NodePath("PauseOverlay/SaveQuitPopup/Cancel")
+
+[node name="PauseOverlay" type="ColorRect" parent="PauseLayer" unique_id=1085243019]
+process_mode = 3
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="Resume" type="Button" parent="PauseLayer/PauseOverlay" unique_id=891705390]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.27800003
+anchor_right = 0.5
+anchor_bottom = 0.27800003
+offset_left = -33.5
+offset_top = -0.24002075
+offset_right = 33.5
+offset_bottom = -272.24002
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Resume"
+
+[node name="Settings" type="Button" parent="PauseLayer/PauseOverlay" unique_id=872675763]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.34300002
+anchor_right = 0.5
+anchor_bottom = 0.34300002
+offset_left = -4.0
+offset_top = -0.44003296
+offset_right = 4.0
+offset_bottom = -362.44003
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="Unlocks" type="Button" parent="PauseLayer/PauseOverlay" unique_id=444011191]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.407
+anchor_right = 0.5
+anchor_bottom = 0.407
+offset_left = -62.5
+offset_top = 0.44000244
+offset_right = 62.5
+offset_bottom = -392.56
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Unlocks"
+
+[node name="Save & Quit" type="Button" parent="PauseLayer/PauseOverlay" unique_id=2144096059]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.47200003
+anchor_right = 0.5
+anchor_bottom = 0.47200003
+offset_left = -90.0
+offset_top = 0.23995972
+offset_right = 90.0
+offset_bottom = -462.76004
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Save & Quit"
+
+[node name="Abandon Run" type="Button" parent="PauseLayer/PauseOverlay" unique_id=1086848434]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.537
+anchor_right = 0.5
+anchor_bottom = 0.537
+offset_left = -101.0
+offset_top = 0.039978027
+offset_right = 101.0
+offset_bottom = -532.96
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Abandon Run"
+
+[node name="SaveQuitPopup" type="Panel" parent="PauseLayer/PauseOverlay" unique_id=1150607391]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PauseLayer/PauseOverlay/SaveQuitPopup" unique_id=671917427]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.17500001
+anchor_right = 0.5
+anchor_bottom = 0.17500001
+offset_left = -108.5
+offset_right = 108.5
+offset_bottom = 38.999992
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Are you sure?"
+
+[node name="QuitMenu" type="Button" parent="PauseLayer/PauseOverlay/SaveQuitPopup" unique_id=410083630]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.35000002
+anchor_right = 0.5
+anchor_bottom = 0.35000002
+offset_left = -141.5
+offset_top = -1.5258789e-05
+offset_right = 141.5
+offset_bottom = -93.000015
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit to Main Menu"
+
+[node name="QuitDesktop" type="Button" parent="PauseLayer/PauseOverlay/SaveQuitPopup" unique_id=2113272247]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.52500004
+anchor_right = 0.5
+anchor_bottom = 0.52500004
+offset_left = -128.5
+offset_top = -1.5258789e-05
+offset_right = 128.5
+offset_bottom = 46.999985
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Quit to Desktop"
+
+[node name="Cancel" type="Button" parent="PauseLayer/PauseOverlay/SaveQuitPopup" unique_id=1717107768]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.70000005
+anchor_right = 0.5
+anchor_bottom = 0.70000005
+offset_left = -54.5
+offset_top = -3.0517578e-05
+offset_right = 54.5
+offset_bottom = -233.00003
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Cancel"
+
+[node name="GlobalFiltersLayer" type="CanvasLayer" parent="." unique_id=614333731]
+layer = 200
+
+[node name="ColorRect" type="ColorRect" parent="GlobalFiltersLayer" unique_id=828971571]
+material = SubResource("ShaderMaterial_raj38")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SettingsLayer" type="CanvasLayer" parent="." unique_id=938892051]
+process_mode = 3
+layer = 100
+
+[node name="SettingsMenu" type="Panel" parent="SettingsLayer" unique_id=192639842 node_paths=PackedStringArray("VolumeSlider", "CrtToggle", "CrtSlider", "WindowModeDropdown", "FpsDropdown", "AnimSpeedDropdown", "HighlightToggle", "CloseButton")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -700.0
+offset_top = -400.0
+offset_right = 700.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
+script = ExtResource("24_raj38")
+VolumeSlider = NodePath("VolumeSlider")
+CrtToggle = NodePath("CRTEffectCheckBox")
+CrtSlider = NodePath("IntensitySlider")
+WindowModeDropdown = NodePath("WindowOptions")
+FpsDropdown = NodePath("FPSOptions")
+AnimSpeedDropdown = NodePath("SpeedOptions")
+HighlightToggle = NodePath("HighlightVisibility")
+CloseButton = NodePath("Button")
+CrtMaterial = SubResource("ShaderMaterial_raj38")
+
+[node name="VolumeLabel" type="Label" parent="SettingsLayer/SettingsMenu" unique_id=638516238]
+layout_mode = 0
+offset_left = 298.0
+offset_top = 100.0
+offset_right = 402.0
+offset_bottom = 139.0
+theme_override_font_sizes/font_size = 32
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsLayer/SettingsMenu" unique_id=94958273]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 150.0
+offset_right = 600.0
+offset_bottom = 180.0
+step = 5.0
+
+[node name="CRTEffectCheckBox" type="CheckBox" parent="SettingsLayer/SettingsMenu" unique_id=533667590]
+layout_mode = 0
+offset_left = 251.5
+offset_top = 220.0
+offset_right = 448.5
+offset_bottom = 267.0
+theme_override_font_sizes/font_size = 32
+text = "CRT Effect"
+
+[node name="CRTLabel" type="Label" parent="SettingsLayer/SettingsMenu" unique_id=811237586]
+layout_mode = 0
+offset_left = 242.5
+offset_top = 300.0
+offset_right = 457.5
+offset_bottom = 339.0
+theme_override_font_sizes/font_size = 32
+text = "CRT Intensity"
+
+[node name="IntensitySlider" type="HSlider" parent="SettingsLayer/SettingsMenu" unique_id=1718588960]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 350.0
+offset_right = 600.0
+offset_bottom = 380.0
+max_value = 1.0
+step = 0.05
+
+[node name="HighlightVisibility" type="CheckBox" parent="SettingsLayer/SettingsMenu" unique_id=1525966974]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 400.0
+offset_right = 570.0
+offset_bottom = 447.0
+theme_override_font_sizes/font_size = 32
+text = "Show Enemy Grid Highlights"
+
+[node name="WindowMode" type="Label" parent="SettingsLayer/SettingsMenu" unique_id=428098239]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 100.0
+offset_right = 998.0
+offset_bottom = 139.0
+theme_override_font_sizes/font_size = 32
+text = "Window Mode"
+
+[node name="WindowOptions" type="OptionButton" parent="SettingsLayer/SettingsMenu" unique_id=945718965]
+layout_mode = 0
+offset_left = 1050.0
+offset_top = 96.0
+offset_right = 1254.0
+offset_bottom = 143.0
+theme_override_font_sizes/font_size = 32
+selected = 1
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "Fullscreen"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Windowed"
+popup/item_2/id = 2
+
+[node name="FPSLabel" type="Label" parent="SettingsLayer/SettingsMenu" unique_id=1061264491]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 200.0
+offset_right = 1056.0
+offset_bottom = 239.0
+theme_override_font_sizes/font_size = 32
+text = "Framerate Limit"
+
+[node name="FPSOptions" type="OptionButton" parent="SettingsLayer/SettingsMenu" unique_id=786553814]
+layout_mode = 0
+offset_left = 1100.0
+offset_top = 196.0
+offset_right = 1182.0
+offset_bottom = 243.0
+theme_override_font_sizes/font_size = 32
+selected = 1
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "60"
+popup/item_0/id = 0
+popup/item_1/text = "120"
+popup/item_1/id = 1
+popup/item_2/text = "144"
+popup/item_2/id = 2
+
+[node name="AnimationSpeed" type="Label" parent="SettingsLayer/SettingsMenu" unique_id=572204432]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 300.0
+offset_right = 1052.0
+offset_bottom = 339.0
+theme_override_font_sizes/font_size = 32
+text = "Animation Speed"
+
+[node name="SpeedOptions" type="OptionButton" parent="SettingsLayer/SettingsMenu" unique_id=1452266230]
+layout_mode = 0
+offset_left = 1100.0
+offset_top = 296.0
+offset_right = 1132.0
+offset_bottom = 316.0
+theme_override_font_sizes/font_size = 32
+selected = 0
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "x1 (Normal)"
+popup/item_0/id = 0
+popup/item_1/text = "x2 (Fast)"
+popup/item_1/id = 1
+popup/item_2/text = "x4 (Turbo)"
+popup/item_2/id = 2
+
+[node name="Button" type="Button" parent="SettingsLayer/SettingsMenu" unique_id=367812513]
+layout_mode = 0
+offset_left = 602.5
+offset_top = 650.0
+offset_right = 797.5
+offset_bottom = 697.0
+theme_override_font_sizes/font_size = 32
+text = "Save & Close"
+
+[node name="GameOverScreen" type="Control" parent="." unique_id=1966688892 node_paths=PackedStringArray("DepthLabel", "KillsLabel", "CurrencyLabel", "UnlocksPanel", "UnlocksScrollContainer", "ReturnButton")]
+visible = false
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+mouse_force_pass_scroll_events = false
+script = ExtResource("25_8e0uq")
+DepthLabel = NodePath("VBoxContainer/DepthLabel")
+KillsLabel = NodePath("VBoxContainer/KillsLabel")
+CurrencyLabel = NodePath("VBoxContainer/CurrencyLabel")
+UnlocksPanel = NodePath("UnlocksPanel")
+UnlocksScrollContainer = NodePath("UnlocksPanel/UnlocksScrollContainer/HBoxContainer")
+CardPrefab = ExtResource("14_acvyw")
+ReturnButton = NodePath("ReturnToRunCreator")
+
+[node name="ColorRect" type="ColorRect" parent="GameOverScreen" unique_id=1074019430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.101960786, 0.101960786, 0.7058824)
+
+[node name="Label" type="Label" parent="GameOverScreen" unique_id=1642325874]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.499
+anchor_top = 0.22600001
+anchor_right = 0.499
+anchor_bottom = 0.22600001
+offset_left = -505.08002
+offset_top = -44.080017
+offset_right = 508.91998
+offset_bottom = 195.91998
+grow_horizontal = 2
+rotation = 0.08726646
+theme_override_colors/font_color = Color(1, 0.6313726, 0.16862746, 1)
+theme_override_font_sizes/font_size = 200
+text = "GAME OVER"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverScreen" unique_id=543414472]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 100.0
+offset_right = 400.0
+offset_bottom = 500.0
+alignment = 1
+
+[node name="RunStatsLabel" type="Label" parent="GameOverScreen/VBoxContainer" unique_id=1682038500]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Run Stats"
+horizontal_alignment = 1
+
+[node name="DepthLabel" type="Label" parent="GameOverScreen/VBoxContainer" unique_id=263648854]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="KillsLabel" type="Label" parent="GameOverScreen/VBoxContainer" unique_id=316872951]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="CurrencyLabel" type="Label" parent="GameOverScreen/VBoxContainer" unique_id=394902228]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="UnlocksPanel" type="Panel" parent="GameOverScreen" unique_id=190467579]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.509
+anchor_right = 0.5
+anchor_bottom = 0.509
+offset_left = -600.0
+offset_top = 0.27996826
+offset_right = 600.0
+offset_bottom = 300.27997
+
+[node name="UnlocksScrollContainer" type="ScrollContainer" parent="GameOverScreen/UnlocksPanel" unique_id=1494354949]
+layout_mode = 0
+offset_right = 1200.0
+offset_bottom = 300.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverScreen/UnlocksPanel/UnlocksScrollContainer" unique_id=1431380544]
+layout_mode = 2
+
+[node name="ReturnToRunCreator" type="Button" parent="GameOverScreen" unique_id=190512259]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.83300006
+anchor_right = 0.5
+anchor_bottom = 0.83300006
+offset_left = -32.5
+offset_top = 0.35992432
+offset_right = 32.5
+offset_bottom = -871.6401
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Return
+"
+
+[node name="StatsMenu" type="Control" parent="." unique_id=1287730051 node_paths=PackedStringArray("ProfileNameLabel", "EconomyStatsContainer", "CombatStatsContainer", "BackButton")]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+mouse_force_pass_scroll_events = false
+script = ExtResource("26_i0vto")
+ProfileNameLabel = NodePath("Panel/ProfileNameLabel")
+EconomyStatsContainer = NodePath("Panel/HBoxContainer/LeftStatsColumn")
+CombatStatsContainer = NodePath("Panel/HBoxContainer/RightStatsColumn")
+BackButton = NodePath("Panel/Button")
+
+[node name="Panel" type="Panel" parent="StatsMenu" unique_id=2097977728]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 140.0
+offset_right = 1660.0
+offset_bottom = 940.0
+
+[node name="ProfileNameLabel" type="Label" parent="StatsMenu/Panel" unique_id=1968392826]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 50.0
+offset_right = 1100.0
+offset_bottom = 109.0
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StatsMenu/Panel" unique_id=1546643293]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 150.0
+offset_right = 1300.0
+offset_bottom = 650.0
+alignment = 1
+
+[node name="LeftStatsColumn" type="VBoxContainer" parent="StatsMenu/Panel/HBoxContainer" unique_id=1210150985]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="RightStatsColumn" type="VBoxContainer" parent="StatsMenu/Panel/HBoxContainer" unique_id=1924478225]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Button" type="Button" parent="StatsMenu/Panel" unique_id=84446583]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.87500006
+anchor_right = 0.5
+anchor_bottom = 0.87500006
+offset_left = -61.0
+offset_top = -6.1035156e-05
+offset_right = 61.0
+offset_bottom = -653.00006
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Return"
+
+[node name="UnlocksMenu" type="Control" parent="." unique_id=724123678 node_paths=PackedStringArray("CardsTabButton", "EnemiesTabButton", "CategoryDropdown", "OrderDropdown", "StateDropdown", "ItemsGrid", "PlaceholderPanel", "DetailsPanel", "DetailImage", "DetailName", "DetailDescription", "DetailUnlockCondition", "BackButton")]
+visible = false
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+mouse_force_pass_scroll_events = false
+script = ExtResource("27_3jf1l")
+CardsTabButton = NodePath("UnlocksPanel/VBoxContainer/TabsContainer/CardsTabButton")
+EnemiesTabButton = NodePath("UnlocksPanel/VBoxContainer/TabsContainer/EnemiesTabButton")
+CategoryDropdown = NodePath("UnlocksPanel/VBoxContainer/FiltersContainer/CategoryDropdown")
+OrderDropdown = NodePath("UnlocksPanel/VBoxContainer/FiltersContainer/OrderDropdown")
+StateDropdown = NodePath("UnlocksPanel/VBoxContainer/FiltersContainer/StateDropdown")
+ItemsGrid = NodePath("UnlocksPanel/VBoxContainer/MainZoneContainer/ScrollContainer/GridContainer")
+GridItemPrefab = ExtResource("28_356ba")
+PlaceholderPanel = NodePath("UnlocksPanel/PlaceholderPanel")
+DetailsPanel = NodePath("UnlocksPanel/VBoxContainer/MainZoneContainer/DetailsPanel")
+DetailImage = NodePath("UnlocksPanel/VBoxContainer/MainZoneContainer/DetailsPanel/TextureRect")
+DetailName = NodePath("UnlocksPanel/VBoxContainer/MainZoneContainer/DetailsPanel/NameLabel")
+DetailDescription = NodePath("UnlocksPanel/VBoxContainer/MainZoneContainer/DetailsPanel/DescriptionLabel")
+DetailUnlockCondition = NodePath("UnlocksPanel/VBoxContainer/MainZoneContainer/DetailsPanel/UnlockConditionLabel")
+BackButton = NodePath("UnlocksPanel/VBoxContainer/TabsContainer/BackButton")
+
+[node name="UnlocksPanel" type="Panel" parent="UnlocksMenu" unique_id=2035021185]
+layout_mode = 0
+offset_left = 260.0
+offset_top = 140.0
+offset_right = 1660.0
+offset_bottom = 940.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UnlocksMenu/UnlocksPanel" unique_id=1389172403]
+layout_mode = 0
+offset_right = 1400.0
+offset_bottom = 800.0
+
+[node name="TabsContainer" type="HBoxContainer" parent="UnlocksMenu/UnlocksPanel/VBoxContainer" unique_id=1361201166]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="CardsTabButton" type="Button" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/TabsContainer" unique_id=1273114845]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Cards"
+
+[node name="EnemiesTabButton" type="Button" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/TabsContainer" unique_id=728423500]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Enemies"
+
+[node name="BackButton" type="Button" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/TabsContainer" unique_id=586618892]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Return"
+
+[node name="FiltersContainer" type="HBoxContainer" parent="UnlocksMenu/UnlocksPanel/VBoxContainer" unique_id=784348663]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="CategoryDropdown" type="OptionButton" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/FiltersContainer" unique_id=763840151]
+layout_mode = 2
+selected = 0
+allow_reselect = true
+item_count = 7
+popup/item_0/text = "All"
+popup/item_0/id = 0
+popup/item_1/text = "Movement"
+popup/item_1/id = 1
+popup/item_2/text = "Attack"
+popup/item_2/id = 2
+popup/item_3/text = "Spell"
+popup/item_3/id = 3
+popup/item_4/text = "Skill"
+popup/item_4/id = 4
+popup/item_5/text = "Passive"
+popup/item_5/id = 5
+popup/item_6/text = "Transf."
+popup/item_6/id = 6
+
+[node name="OrderDropdown" type="OptionButton" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/FiltersContainer" unique_id=225479851]
+layout_mode = 2
+selected = 0
+allow_reselect = true
+item_count = 2
+popup/item_0/text = "Ascending"
+popup/item_0/id = 0
+popup/item_1/text = "Descending"
+popup/item_1/id = 1
+
+[node name="StateDropdown" type="OptionButton" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/FiltersContainer" unique_id=918886624]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "All"
+popup/item_0/id = 0
+popup/item_1/text = "Unlocked"
+popup/item_1/id = 1
+popup/item_2/text = "Locked"
+popup/item_2/id = 2
+
+[node name="MainZoneContainer" type="HBoxContainer" parent="UnlocksMenu/UnlocksPanel/VBoxContainer" unique_id=1521579809]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/MainZoneContainer" unique_id=958993477]
+custom_minimum_size = Vector2(850, 0)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/MainZoneContainer/ScrollContainer" unique_id=429739466]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 15
+columns = 5
+
+[node name="DetailsPanel" type="Panel" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/MainZoneContainer" unique_id=1050438049]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/MainZoneContainer/DetailsPanel" unique_id=965477626]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.07
+anchor_right = 0.5
+anchor_bottom = 0.07
+offset_left = -120.0
+offset_top = -0.18999863
+offset_right = 120.0
+offset_bottom = 359.81
+grow_horizontal = 2
+
+[node name="NameLabel" type="Label" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/MainZoneContainer/DetailsPanel" unique_id=884757123]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.586
+anchor_right = 0.5
+anchor_bottom = 0.586
+offset_left = -120.0
+offset_top = -0.16201782
+offset_right = 120.0
+offset_bottom = 38.837982
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/MainZoneContainer/DetailsPanel" unique_id=1379885518]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49500003
+anchor_top = 0.669
+anchor_right = 0.49500003
+anchor_bottom = 0.669
+offset_left = -270.27002
+offset_top = 0.32696533
+offset_right = 269.72998
+offset_bottom = 185.32697
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="UnlockConditionLabel" type="Label" parent="UnlocksMenu/UnlocksPanel/VBoxContainer/MainZoneContainer/DetailsPanel" unique_id=1893701919]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -39.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+
+[node name="PlaceholderPanel" type="Panel" parent="UnlocksMenu/UnlocksPanel" unique_id=1197975615]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.61
+anchor_top = 0.104
+anchor_right = 0.61
+anchor_bottom = 0.104
+offset_top = -0.20000458
+offset_right = 546.0
+offset_bottom = 716.8

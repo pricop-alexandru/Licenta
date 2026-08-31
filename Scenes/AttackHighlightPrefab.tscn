@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://sjxn2uyw07wl"]
+
+[ext_resource type="Texture2D" uid="uid://buytdlw6piu4a" path="res://Assets/Sprites/AttackHighlight.png" id="1_2rtde"]
+
+[node name="AttackHighlight" type="Node2D" unique_id=961286867]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1986183322]
+texture = ExtResource("1_2rtde")

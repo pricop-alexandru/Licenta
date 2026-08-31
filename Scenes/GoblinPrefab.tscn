@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dnmujul5bmfuf"]
+
+[ext_resource type="Script" uid="uid://bysi8ebvvcmg7" path="res://Scripts/View/EntityView.cs" id="1_2tt2b"]
+[ext_resource type="Texture2D" uid="uid://doy2xp1q726a8" path="res://icon.svg" id="2_tudbv"]
+
+[node name="GoblinPrefab" type="Node2D" unique_id=1514204296 node_paths=PackedStringArray("MainSprite")]
+script = ExtResource("1_2tt2b")
+MainSprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1874138994]
+scale = Vector2(0.2, 0.4)
+texture = ExtResource("2_tudbv")
+offset = Vector2(0, -48)

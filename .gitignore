@@ -1,0 +1,13 @@
+# Godot-specific ignores
+.godot/
+*.translation
+export_presets.cfg
+Export/
+
+# C# and .NET ignores
+.mono/
+bin/
+obj/
+.vs/
+*.user
+*.suo
