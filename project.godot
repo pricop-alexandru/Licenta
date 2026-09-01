@@ -32,7 +32,6 @@ folder_colors={
 "res://Assets/Audio/": "teal",
 "res://Assets/Fonts/": "gray",
 "res://Assets/Sprites/": "green",
-"res://Resources/": "pink",
 "res://Scenes/": "blue",
 "res://Scripts/": "purple"
 }

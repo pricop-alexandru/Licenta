@@ -22,20 +22,20 @@ public class LevelGeneratorService
         
         Random rng = new Random();
 
-        // 2. Generarea dinamica a punctelor de Start si Exit
-        // Player Start: Coloana 0 (Stanga). Randul Y: aleatoriu, ignorand colturile
+        // 2. Dynamic generation of start and exit
+        // Player start, first collumn
         int startY = rng.Next(1, height - 1);
         playerStart = new Vector2I(0, startY);
 
-        // Exit: Ultima coloana (Dreapta, adica Width - 1). Randul Y: aleatoriu
+        // Exit, last collumn
         int exitY = rng.Next(1, height - 1);
         exitPos = new Vector2I(width - 1, exitY);
 
-        // 3. Generate the layout and validate it
+        // 3. Generating the layout and validating it
         newGrid = GenerateLevel(width, height, playerStart, exitPos);
         SpawnChests(newGrid, currentDepth, playerStart, exitPos);
 
-        // 4. Enemy scaling formula: creste inaintea maririi hartii
+        // 4. Enemy scaling formula: rises before mapsize does
         int numEnemies = Math.Min(1 + ((currentDepth + 1) / 3), MAX_ENEMIES_CAP);
         newEnemies = SpawnEnemies(newGrid, playerStart, exitPos, numEnemies, currentDepth, unlockedEnemyIds);
     }
@@ -44,7 +44,7 @@ public class LevelGeneratorService
     {
         GridModel grid = new GridModel(width, height);
 
-        // 1. Initializam tot terenul ca fiind o platforma complet deschisa (walkable)
+        // We initialize the terrain as being walkable
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -53,11 +53,11 @@ public class LevelGeneratorService
             }
         }
 
-        // 2. Plasare Aleatoare de Ziduri (Obstacole)
+        // We sprinkle walls
         System.Random rng = new System.Random();
         int totalTiles = width * height;
         
-        // 20% din harta vor fi ziduri (Poti ajusta procentul in functie de cat de aglomerat vrei sa fie)
+        // 40% of the map will be walls
         int maxWalls = (int)(totalTiles * 0.40f); 
         int wallsPlaced = 0;
         int attempts = 0;
@@ -69,20 +69,18 @@ public class LevelGeneratorService
             int ry = rng.Next(height);
             Vector2I pos = new Vector2I(rx, ry);
 
-            // Nu punem zid pe start sau pe usa de iesire
+            // No wall on start or rexit
             if (pos != startPos && pos != exitPos && grid.Tiles[rx, ry].IsWalkable)
             {
-                // Plantam zidul temporar
+                // Temporarily place a wall and validating it in order to set it in stone
                 grid.Tiles[rx, ry].IsWalkable = false;
 
-                // Verificam daca prin punerea acestui zid am blocat drumul catre iesire
                 if (IsPathValid(grid, startPos, exitPos))
                 {
-                    wallsPlaced++; // Aprobam zidul
+                    wallsPlaced++;
                 }
                 else
                 {
-                    // Daca drumul e blocat, stergem zidul si incercam altundeva
                     grid.Tiles[rx, ry].IsWalkable = true;
                 }
             }
@@ -95,13 +93,13 @@ public class LevelGeneratorService
         bool[,] reachable = new bool[grid.Width, grid.Height];
         System.Collections.Generic.Queue<Vector2I> queue = new System.Collections.Generic.Queue<Vector2I>();
 
-        // Incepem de la player
+        // Starting from the player
         queue.Enqueue(start);
         reachable[start.X, start.Y] = true;
 
         Vector2I[] dirs = { Vector2I.Up, Vector2I.Down, Vector2I.Left, Vector2I.Right };
 
-        // Descoperim tot ce este conectat la player
+        // We discover everything that is connected to the player
         while (queue.Count > 0)
         {
             Vector2I curr = queue.Dequeue();
@@ -116,7 +114,7 @@ public class LevelGeneratorService
             }
         }
 
-        // Transformam in perete orice tile pe care nu am putut calca
+        // We transform into a wall every tile we couldn't reach
         for (int x = 0; x < grid.Width; x++)
         {
             for (int y = 0; y < grid.Height; y++)
@@ -128,7 +126,7 @@ public class LevelGeneratorService
             }
         }
     }
-    // Algoritm de tip "Flood Fill" (Breadth-First Search) pentru a garanta ca jocul poate fi castigat
+    // Flood Fill BFS
     private bool IsPathValid(GridModel grid, Vector2I start, Vector2I exit)
     {
         bool[,] visited = new bool[grid.Width, grid.Height];
