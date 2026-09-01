@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Deckrinth.Model;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Deckrinth.Services;
 
@@ -15,6 +16,14 @@ public class LevelGeneratorService
     // Called by GameLoopManager to orchestrate the entire floor setup
     public void SetupNextLevel(int currentDepth, List<string> unlockedEnemyIds, out GridModel newGrid, out List<Entity> newEnemies, out Vector2I playerStart, out Vector2I exitPos)
     {
+        // The following lines are for testing only, with 1, 15, 45
+        int FORCE_DEPTH = 45; 
+        
+        if (FORCE_DEPTH != -1) 
+        {
+            currentDepth = FORCE_DEPTH;
+        }
+        Stopwatch sw = Stopwatch.StartNew();
         // 1. Dynamic scaling based on your Staggered Progression formula
         int size = Math.Min(4 + (currentDepth / 3), MAX_MAP_SIZE);
         int width = size;
@@ -38,6 +47,10 @@ public class LevelGeneratorService
         // 4. Enemy scaling formula: rises before mapsize does
         int numEnemies = Math.Min(1 + ((currentDepth + 1) / 3), MAX_ENEMIES_CAP);
         newEnemies = SpawnEnemies(newGrid, playerStart, exitPos, numEnemies, currentDepth, unlockedEnemyIds);
+
+        // End of testing
+        sw.Stop();
+        GD.Print($"[TEST 1] SetupNextLevel (Depth {currentDepth}, Size {width}x{height}, Enemies {newEnemies.Count}) a durat: {sw.ElapsedMilliseconds} ms ({sw.ElapsedTicks} ticks)");
     }
 
     private GridModel GenerateLevel(int width, int height, Vector2I startPos, Vector2I exitPos)

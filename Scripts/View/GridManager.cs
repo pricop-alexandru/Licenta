@@ -25,7 +25,9 @@ public partial class GridManager : Node2D
     
     private const float DROP_HEIGHT = -500f; 
     private const float DROP_DURATION = 0.4f; 
-    private const float STAGGER_DELAY = 0.05f; 
+    
+    // We replace the static stagger delay with a maximum allowed build time for the entire grid
+    private const float MAX_BUILD_TIME = 0.6f; 
 
     public void RenderGridWithAnimation(GridModel gridData)
     {
@@ -36,6 +38,10 @@ public partial class GridManager : Node2D
         }
 
         int elementIndex = 0; 
+        
+        // Calculate the dynamic stagger delay based on the total number of tiles to ensure the animation never exceeds MAX_BUILD_TIME
+        int totalTiles = gridData.Width * gridData.Height;
+        float dynamicStagger = MAX_BUILD_TIME / totalTiles;
 
         for (int x = 0; x < gridData.Width; x++)
         {
@@ -54,7 +60,9 @@ public partial class GridManager : Node2D
                 tileVisual.Modulate = new Color(1, 1, 1, 0);
 
                 Tween tween = GetTree().CreateTween();
-                float currentDelay = elementIndex * STAGGER_DELAY;
+                
+                // Use the calculated dynamic stagger instead of a fixed value
+                float currentDelay = elementIndex * dynamicStagger;
                 
                 tween.TweenProperty(tileVisual, "position", targetScreenPos, DROP_DURATION)
                      .SetDelay(currentDelay)
@@ -63,6 +71,7 @@ public partial class GridManager : Node2D
                      
                 tween.Parallel().TweenProperty(tileVisual, "modulate", new Color(1, 1, 1, targetOpacity), DROP_DURATION * 0.5f)
                      .SetDelay(currentDelay);
+                
                 if (gridData.Tiles[x, y].Effect == TileEffect.Chest)
                 {
                     Node2D chestVisual = ChestPrefab.Instantiate<Node2D>();
@@ -104,6 +113,7 @@ public partial class GridManager : Node2D
     {
         if (!SettingsManager.ShowHighlights && type == HighlightType.EnemyIntent) 
             return;
+            
         // We choose the prefab
         PackedScene prefabToUse = (type == HighlightType.Movement) ? MoveHighlightPrefab : AttackHighlightPrefab;
         if (prefabToUse == null) return;
@@ -122,6 +132,7 @@ public partial class GridManager : Node2D
             _playerHighlights.Add(highlight);
         }
     }
+    
     public void ClearPlayerHighlights()
     {
         foreach (var hl in _playerHighlights) if (IsInstanceValid(hl)) hl.QueueFree();
@@ -133,6 +144,7 @@ public partial class GridManager : Node2D
         foreach (var hl in _enemyHighlights) if (IsInstanceValid(hl)) hl.QueueFree();
         _enemyHighlights.Clear();
     }
+    
     public void SetChestLooted(Vector2I gridPos)
     {
         if (_chestVisuals.TryGetValue(gridPos, out Node2D chest))

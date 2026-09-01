@@ -317,7 +317,7 @@ public partial class GameRoot : Node2D
             animPlayer.Pause();
         }
         float totalTiles = _gameLoop.CurrentGrid.Width * _gameLoop.CurrentGrid.Height;
-        float delayForPortal = (totalTiles * 0.05f) + 0.1f;
+        float delayForPortal = 0.5f;
         Vector2 targetScreenPos = GridView.LogicalToIsometric(_gameLoop.CurrentExitPos);
         
         _portalVisual.Position = targetScreenPos + new Vector2(0, -500); 
@@ -409,7 +409,7 @@ public partial class GameRoot : Node2D
         _playerVisual.GetNode<Sprite2D>("Sprite2D").Modulate = new Color(0.2f, 0.8f, 0.2f);
 
         float totalTiles = _gameLoop.CurrentGrid.Width * _gameLoop.CurrentGrid.Height;
-        float delayForPlayer = (totalTiles * 0.05f) + 0.3f;
+        float delayForPlayer = 0.7f;
 
         _playerVisual.Initialize(GridView, _gameLoop.Player.Position, delayForPlayer, "You");
         GetTree().CreateTimer(delayForPlayer + 0.4f).Timeout += StartPlayerTurnVisuals;
@@ -452,7 +452,7 @@ public partial class GameRoot : Node2D
         _enemyVisuals.Clear();
 
         float totalTiles = _gameLoop.CurrentGrid.Width * _gameLoop.CurrentGrid.Height;
-        float delayForEnemies = (totalTiles * 0.05f) + 0.3f;
+        float delayForEnemies = 1.0f;
 
         foreach (Entity enemy in _gameLoop.Enemies)
         {

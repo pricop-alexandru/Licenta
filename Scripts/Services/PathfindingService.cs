@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using System.Diagnostics;
 
 namespace Deckrinth.Services;
 
@@ -16,6 +17,7 @@ public class PathfindingService
     // Flow field (Dijkstra map) generation for a given target position
     public int[,] GenerateFlowField(Vector2I targetPosition)
     {
+        Stopwatch sw = Stopwatch.StartNew();
         int[,] flowField = new int[_grid.Width, _grid.Height];
         
         // We initialize the flow field with a high value (9999) to represent unvisited cells
@@ -52,7 +54,9 @@ public class PathfindingService
                 }
             }
         }
-
+        sw.Stop();
+        // Will print at every step enemies take towards me
+        GD.Print($"[TEST 2] FlowField Dijkstra (Size {_grid.Width}x{_grid.Height}) a durat: {sw.ElapsedMilliseconds} ms ({sw.ElapsedTicks} ticks)");
         return flowField;
     }
 }
