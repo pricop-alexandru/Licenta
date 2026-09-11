@@ -52,6 +52,19 @@ public partial class CameraController : Camera2D
             // We divide by current Zoom so panning feels consistent regardless of zoom level.
             Position -= mouseMotion.Relative / Zoom;
         }
+        // Fullscreen toggle
+        if (@event is InputEventKey keyEvent && keyEvent.Keycode == Key.F11 && keyEvent.Pressed && !keyEvent.Echo)
+        {
+            var currentMode = DisplayServer.WindowGetMode();
+            if (currentMode == DisplayServer.WindowMode.Fullscreen || currentMode == DisplayServer.WindowMode.ExclusiveFullscreen)
+            {
+                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+            }
+            else
+            {
+                DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
+            }
+        }
     }
 
     public override void _Process(double delta)

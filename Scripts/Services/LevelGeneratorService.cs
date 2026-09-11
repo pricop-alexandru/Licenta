@@ -17,7 +17,7 @@ public class LevelGeneratorService
     public void SetupNextLevel(int currentDepth, List<string> unlockedEnemyIds, out GridModel newGrid, out List<Entity> newEnemies, out Vector2I playerStart, out Vector2I exitPos)
     {
         // The following lines are for testing only, with 1, 15, 45
-        int FORCE_DEPTH = 45; 
+        int FORCE_DEPTH = -1; 
         
         if (FORCE_DEPTH != -1) 
         {

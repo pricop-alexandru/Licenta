@@ -878,11 +878,11 @@ theme_override_font_sizes/font_size = 32
 selected = 1
 allow_reselect = true
 item_count = 3
-popup/item_0/text = "Fullscreen"
+popup/item_0/text = "Windowed"
 popup/item_0/id = 0
 popup/item_1/text = "Borderless"
 popup/item_1/id = 1
-popup/item_2/text = "Windowed"
+popup/item_2/text = "Fullscreen"
 popup/item_2/id = 2
 
 [node name="FPSLabel" type="Label" parent="SettingsLayer/SettingsMenu" unique_id=1061264491]
@@ -1126,6 +1126,7 @@ theme_override_font_sizes/font_size = 32
 text = "Return"
 
 [node name="UnlocksMenu" type="Control" parent="." unique_id=724123678 node_paths=PackedStringArray("CardsTabButton", "EnemiesTabButton", "CategoryDropdown", "OrderDropdown", "StateDropdown", "ItemsGrid", "PlaceholderPanel", "DetailsPanel", "DetailImage", "DetailName", "DetailDescription", "DetailUnlockCondition", "BackButton")]
+process_mode = 3
 visible = false
 z_index = 100
 layout_mode = 3

@@ -54,22 +54,29 @@ public static class SettingsManager
         catch (Exception e) { GD.PrintErr($"Failed to save settings: {e.Message}"); }
     }
 
+    
     public static void ApplyEngineSettings()
     {
         Engine.MaxFps = Current.FpsLimit;
+        // Get current screen and window sizes to determine how to apply window mode settings
+        int currentScreen = DisplayServer.WindowGetCurrentScreen();
+        Vector2I screenSize = DisplayServer.ScreenGetSize(currentScreen);
+        Vector2I windowSize = DisplayServer.WindowGetSize();
 
         switch (Current.WindowModeIndex)
         {
             case 0:
                 DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+                // Force the OS to render the modern window frame
                 DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, false);
+                // Center the window
+                DisplayServer.WindowSetPosition((screenSize - windowSize) / 2);
                 break;
             case 1:
                 DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+                // Remove borders
                 DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true);
                 // Center the window on the screen
-                Vector2I screenSize = DisplayServer.ScreenGetSize();
-                Vector2I windowSize = DisplayServer.WindowGetSize();
                 DisplayServer.WindowSetPosition((screenSize - windowSize) / 2);
                 break;
             case 2:

@@ -43,7 +43,7 @@ public static class CardRegistry
             return constructor();
         }
         
-        // In a real scenario, we might want to log an error here or return a fallback 'Glitch' card
+        // In a real scenario, we might want to log an error here or return a fallback 'Glitch' card, but that is not necessary now
         return null; 
     }
 
